@@ -1,15 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
-import Header from "./components/header";
+import Letting from "./pages/letting";
 import "./App.scss";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/letting/:id" element={<Letting />} />
       </Routes>
     </Router>
   </React.StrictMode>,
