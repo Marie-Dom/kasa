@@ -1,6 +1,6 @@
-// import "./navbar.scss";
 import { Link } from "react-router-dom";
 
+// création de la barre de navigation du site du Header
 export default function Navbar() {
   const currentRoute = window.location.pathname;
 

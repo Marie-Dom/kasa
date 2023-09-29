@@ -1,34 +1,39 @@
-import "./letting.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import datas from "../../datas/datas";
 import Header from "../../components/header/Header";
-import Slider from "../../components/carousel/Carousel";
+import Slider from "../../components/carrousel/Carrousel";
 import Footer from "../../components/footer/Footer";
 import Collapse from "../../components/collapse/Collapse";
 import greyStar from "../../assets/star-inactive.png";
 import redStar from "../../assets/star-active.png";
 
+// Création de la fonction Letting() pour récupérer toutes les informations relatives aux logements à louer
 export default function Letting() {
   const [imageSlider, setImageSlider] = useState([]);
 
+  // utilisation de la fonction filter() pour filtrer les données et récupérer à l'aide de l'id, la donnée souhaitée
   const idLetting = useParams("id").id;
   const dataCurrentLetting = datas.filter((data) => data.id === idLetting);
 
+  // utilisation du hook useEffect pour créer un effet de bord permettant d'afficher les photos de la donnée choisie par son id
   useEffect(() => {
     const dataCurrentLetting = datas.filter((data) => data.id === idLetting);
     setImageSlider(dataCurrentLetting[0].pictures);
   }, [idLetting]);
 
+  // Récupération des informations de l'hôte (nom, les avis, description du logement et des équipements)
   const name = dataCurrentLetting[0].host.name.split(" ");
   const rating = dataCurrentLetting[0].rating;
   const description = dataCurrentLetting[0].description;
   const equipments = dataCurrentLetting[0].equipments;
 
+  // Création du Dom avec appel des composants importés pour affichage de la page
   return (
     <>
       <Header />
       <Slider imageSlider={imageSlider} />
+      {/* Ajout du contenu des locations d'appartement dans le Dom */}
       <main className="letting">
         <div className="letting_content">
           <div className="letting_content_infos">
@@ -40,6 +45,7 @@ export default function Letting() {
               })}
             </div>
           </div>
+          {/* Ajout des informations de l'hôte, loueur du logement */}
           <div className="letting_content_host">
             <div>
               <div className="letting_content_host_name">
@@ -51,7 +57,7 @@ export default function Letting() {
                 alt="host of this Letting"
               />
             </div>
-
+            {/* Mise en place des étoiles traduisant l'avis des utilisateurs dans le Dom */}
             <div className="letting_content_host_stars">
               {[...Array(5)].map((star, index) => {
                 const ratingValue = index + 1;
@@ -66,6 +72,7 @@ export default function Letting() {
             </div>
           </div>
         </div>
+        {/* Mise en place du menu déroulant dans le Dom */}
         <div className="letting_collapse">
           <div className="letting_collapse_item">
             <Collapse title={"Description"} content={description} />
