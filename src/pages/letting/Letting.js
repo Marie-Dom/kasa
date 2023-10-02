@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import datas from "../../datas/datas";
+import datas from "../../datas/logements.json";
 import Header from "../../components/header/Header";
 import Slider from "../../components/carrousel/Carrousel";
 import Footer from "../../components/footer/Footer";

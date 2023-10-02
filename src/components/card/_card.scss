@@ -2,15 +2,16 @@
 
 .gallery_card {
   position: relative;
-  width: 30%;
-  height: 340px;
+  width: 31%;
+  height: 250px;
   border-radius: 10px;
   cursor: pointer;
   overflow: hidden;
   transition: box-shadow 0.2s ease-in-out;
-  @media screen and (max-width: 1230px) {
-    width: 47%;
-  }
+
+  // @media screen and (max-width: 1230px) {
+  //   width: 47%;
+  // }
   @media screen and (max-width: 900px) {
     width: 100%;
   }

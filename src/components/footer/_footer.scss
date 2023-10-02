@@ -3,6 +3,7 @@
 
 .footer {
   @include flex(column);
+  margin-top: 50px;
   gap: 50px;
   width: 100%;
   height: 209px;
