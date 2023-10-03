@@ -7,6 +7,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // Mise en place des routes pour le router
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Home />,
+  },
+  {
     path: "/Kasa/",
     element: <Home />,
   },
