@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import datas from "../../datas/logements.json";
 import Header from "../../components/header/Header";
 import Slider from "../../components/carrousel/Carrousel";
@@ -21,6 +21,11 @@ export default function Letting() {
     const dataCurrentLetting = datas.filter((data) => data.id === idLetting);
     setImageSlider(dataCurrentLetting[0].pictures);
   }, [idLetting]);
+
+  // Redirection vers la page d'erreur en cas d'id erronée
+  if (dataCurrentLetting[0] === undefined) {
+    return <Navigate to="*" replace={true} />;
+  }
 
   // Récupération des informations de l'hôte (nom, les avis, description du logement et des équipements)
   const name = dataCurrentLetting[0].host.name.split(" ");
@@ -59,7 +64,7 @@ export default function Letting() {
             </div>
             {/* Mise en place des étoiles traduisant l'avis des utilisateurs dans le Dom */}
             <div className="letting_content_host_stars">
-              {[...Array(5)].map((star, index) => {
+              {[...Array(5)].map((_star, index) => {
                 const ratingValue = index + 1;
                 return (
                   <img
