@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import datas from "../../datas/logements.json";
 import Header from "../../components/header/Header";
 import Slider from "../../components/carrousel/Carrousel";
@@ -7,6 +7,13 @@ import Footer from "../../components/footer/Footer";
 import Collapse from "../../components/collapse/Collapse";
 import greyStar from "../../assets/star-inactive.png";
 import redStar from "../../assets/star-active.png";
+import NotFound from "../notFound";
+
+const isValidId = async (setImageSlider, idLetting) => {
+  const dataCurrentLetting = datas.filter((data) => data.id === idLetting);
+  if (dataCurrentLetting[0] === undefined) return dataCurrentLetting;
+  setImageSlider(dataCurrentLetting[0].pictures);
+};
 
 // Création de la fonction Letting() pour récupérer toutes les informations relatives aux logements à louer
 export default function Letting() {
@@ -18,13 +25,17 @@ export default function Letting() {
 
   // utilisation du hook useEffect pour créer un effet de bord permettant d'afficher les photos de la donnée choisie par son id
   useEffect(() => {
-    const dataCurrentLetting = datas.filter((data) => data.id === idLetting);
-    setImageSlider(dataCurrentLetting[0].pictures);
+    try {
+      if (isValidId(setImageSlider, idLetting) === undefined)
+        return <NotFound />;
+    } catch (error) {
+      return <NotFound />;
+    }
   }, [idLetting]);
 
   // Redirection vers la page d'erreur en cas d'id erronée
   if (dataCurrentLetting[0] === undefined) {
-    return <Navigate to="*" replace={true} />;
+    return <NotFound />;
   }
 
   // Récupération des informations de l'hôte (nom, les avis, description du logement et des équipements)
